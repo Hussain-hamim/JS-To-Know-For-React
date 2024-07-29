@@ -1,48 +1,30 @@
-export default function add(a, b) {
-  return a + b;
+const message = bottle.fullOfSoda
+  ? "The bottle has soda!"
+  : "The bottle may not have soda :-(";
+
+// is the same as
+let message;
+if (bottle.fullOfSoda) {
+  message = "The bottle has soda!";
+} else {
+  message = "The bottle may not have soda :-(";
 }
-
-/*
- * import add from './add'
- * console.assert(add(3, 2) === 5)
- */
-
-export const foo = "bar";
-
-/*
- * import {foo} from './foo'
- * console.assert(foo === 'bar')
- */
-
-export function subtract(a, b) {
-  return a - b;
-}
-
-export const now = new Date();
-
-/*
- * import {subtract, now} from './stuff'
- * console.assert(subtract(4, 2) === 2)
- * console.assert(now instanceof Date)
- */
-
-// dynamic imports
-import("./some-module").then(
-  (allModuleExports) => {
-    // the allModuleExports object will be the same object you get if you had
-    // used: import * as allModuleExports from './some-module'
-    // the only difference is this will be loaded asynchronously which can
-    // have performance benefits in some cases
-  },
-  (error) => {
-    // handle the error
-    // this will happen if there's an error loading or running the module
-  }
-);
 
 // in React:
-import React, { Suspense, Fragment } from "react";
-
-// dynamic import of a React component
-const BigComponent = React.lazy(() => import("./big-component"));
-// big-component.js would need to "export default BigComponent" for this to work
+function TeddyBearList({ teddyBears }) {
+  return (
+    <React.Fragment>
+      {teddyBears.length ? (
+        <ul>
+          {teddyBears.map((teddyBear) => (
+            <li key={teddyBear.id}>
+              <span>{teddyBear.name}</span>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div>There are no teddy bears. The sadness.</div>
+      )}
+    </React.Fragment>
+  );
+}
