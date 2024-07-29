@@ -248,12 +248,6 @@ function Box({ className, ...restOfTheProps }) {
 
 ## ESModules
 
-If you're building an app with modern tools, chances are it supports modules, it's a good idea to learn how the syntax works because any application of even trivial size will likely need to make use of modules for code reuse
-
-Sure, here is how you can format the provided article into a `README.md` file with proper syntax highlighting for code blocks:
-
-## ESModules
-
 If you're building an app with modern tools, chances are it supports modules. It's a good idea to learn how the syntax works because any application of even trivial size will likely need to make use of modules for code reuse and organization.
 
 ```javascript
