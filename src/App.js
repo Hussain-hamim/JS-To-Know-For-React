@@ -1,73 +1,48 @@
-const dogs = [
-  {
-    id: "dog-1",
-    name: "Poodle",
-    temperament: [
-      "Intelligent",
-      "Active",
-      "Alert",
-      "Faithful",
-      "Trainable",
-      "Instinctual",
-    ],
+export default function add(a, b) {
+  return a + b;
+}
+
+/*
+ * import add from './add'
+ * console.assert(add(3, 2) === 5)
+ */
+
+export const foo = "bar";
+
+/*
+ * import {foo} from './foo'
+ * console.assert(foo === 'bar')
+ */
+
+export function subtract(a, b) {
+  return a - b;
+}
+
+export const now = new Date();
+
+/*
+ * import {subtract, now} from './stuff'
+ * console.assert(subtract(4, 2) === 2)
+ * console.assert(now instanceof Date)
+ */
+
+// dynamic imports
+import("./some-module").then(
+  (allModuleExports) => {
+    // the allModuleExports object will be the same object you get if you had
+    // used: import * as allModuleExports from './some-module'
+    // the only difference is this will be loaded asynchronously which can
+    // have performance benefits in some cases
   },
-
-  {
-    id: "dog-2",
-    name: "Bernese Mountain Dog",
-    temperament: ["Affectionate", "Intelligent", "Loyal", "Faithful"],
-  },
-
-  {
-    id: "dog-3",
-    name: "Labrador Retriever",
-    temperament: [
-      "Intelligent",
-      "Even Tempered",
-      "Kind",
-      "Agile",
-      "Outgoing",
-      "Trusting",
-      "Gentle",
-    ],
-  },
-];
-
-dogs.find((dog) => dog.name === "Bernese Mountain Dog");
-// {id: 'dog-2', name: 'Bernese Mountain Dog', ...etc}
-
-dogs.some((dog) => dog.temperament.includes("Aggressive"));
-// false
-
-dogs.some((dog) => dog.temperament.includes("Trusting"));
-// true
-
-dogs.every((dog) => dog.temperament.includes("Trusting"));
-// false
-
-dogs.every((dog) => dog.temperament.includes("Intelligent"));
-// true
-
-dogs.map((dog) => dog.name);
-// ['Poodle', 'Bernese Mountain Dog', 'Labrador Retriever']
-
-dogs.filter((dog) => dog.temperament.includes("Faithful"));
-// [{id: 'dog-1', ..etc}, {id: 'dog-2', ...etc}]
-
-dogs.reduce((allTemperaments, dog) => {
-  return [...allTemperaments, ...dog.temperament];
-}, []);
-// [ 'Intelligent', 'Active', 'Alert', ...etc ]
+  (error) => {
+    // handle the error
+    // this will happen if there's an error loading or running the module
+  }
+);
 
 // in React:
-function RepositoryList({ repositories, owner }) {
-  return (
-    <ul>
-      {repositories
-        .filter((repo) => repo.owner === owner)
-        .map((repo) => (
-          <li key={repo.id}>{repo.name}</li>
-        ))}
-    </ul>
-  );
-}
+import React, { Suspense, Fragment } from "react";
+
+// dynamic import of a React component
+const BigComponent = React.lazy(() => import("./big-component"));
+// big-component.js would need to "export default BigComponent" for this to work
