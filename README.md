@@ -1,5 +1,7 @@
 # JavaScript to Know for React
 
+![js to know for react](jstoknow.jpg)
+
 One of the things I love most about React compared to other frameworks that I've used is how exposed you are to JavaScript when you're using it. There's no template DSL (JSX compiles to sensible JavaScript), the component API has only gotten simpler with the addition of React Hooks, and the framework offers you very little abstraction outside the core UI concerns it's intended to solve.
 
 Because of this, learning JavaScript features is really advisable for you to be effective building applications with React. So here are a few JavaScript features I'd recommend you spend some time learning so you can be as effective as possible working with React.
