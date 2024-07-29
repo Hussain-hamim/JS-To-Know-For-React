@@ -1,22 +1,33 @@
-function nestedArrayAndObject() {
-  // refactor this to a single line of destructuring...
-  const info = {
-    title: "Once Upon a Time",
-    protagonist: {
-      name: "Emma Swan",
-      enemies: [
-        { name: "Regina Mills", title: "Evil Queen" },
-        { name: "Cora Mills", title: "Queen of Hearts" },
-        { name: "Peter Pan", title: `The boy who wouldn't grow up` },
-        { name: "Zelena", title: "The Wicked Witch" },
-      ],
-    },
-  };
-  // const {} = info // <-- replace the next few `const` lines with this
-  const title = info.title;
-  const protagonistName = info.protagonist.name;
-  const enemy = info.protagonist.enemies[3];
-  const enemyTitle = enemy.title;
-  const enemyName = enemy.name;
-  return `${enemyName} (${enemyTitle}) is an enemy to ${protagonistName} in "${title}"`;
+// add(1)
+// add(1, 2)
+function add(a, b = 0) {
+  return a + b;
+}
+
+// is the same as
+const add = (a, b = 0) => a + b;
+
+// is the same as
+function add(a, b) {
+  b = b === undefined ? 0 : b;
+  return a + b;
+}
+
+// in React:
+function useLocalStorageState({
+  key,
+  initialValue,
+  serialize = (v) => v,
+  deserialize = (v) => v,
+}) {
+  const [state, setState] = React.useState(
+    () => deserialize(window.localStorage.getItem(key)) || initialValue
+  );
+
+  const serializedState = serialize(state);
+  React.useEffect(() => {
+    window.localStorage.setItem(key, serializedState);
+  }, [key, serializedState]);
+
+  return [state, setState];
 }
