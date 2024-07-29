@@ -1,26 +1,32 @@
-// here's what we often did for this:
-x = x || "some default";
+// what we did before optional chaining:
+const streetName = user && user.address && user.address.street.name;
 
-// but this was problematic for numbers or booleans where "0" or "false" are valid values
+// what we can do now:
+const streetName = user?.address?.street?.name;
 
-// So, if we wanted to support this:
-add(null, 3);
+// this will run even if options is undefined (in which case, onSuccess would be undefined as well)
+// however, it will still fail if options was never declared,
+// since optional chaining cannot be used on a non-existent root object.
+// optional chaining does not replace checks like if (typeof options == "undefined")
+const onSuccess = options?.onSuccess;
 
-// here's what we had to do before:
-function add(a, b) {
-  a = a == null ? 0 : a;
-  b = b == null ? 0 : b;
-  return a + b;
-}
+// this will run without error even if onSuccess is undefined (in which case, no function will be called)
+onSuccess?.({ data: "yay" });
 
-// here's what we can do now
-function add(a, b) {
-  a = a ?? 0;
-  b = b ?? 0;
-  return a + b;
-}
+// and we can combine those things into a single line:
+options?.onSuccess?.({ data: "yay" });
+
+// and if you are 100% certain that onSuccess is a function if options exists
+// then you don't need the extra ?. before calling it. Only use ?. in situations
+// where the thing on the left might not exist.
+options?.onSuccess({ data: "yay" });
 
 // in React:
-function DisplayContactName({ contact }) {
-  return <div>{contact.name ?? "Unknown"}</div>;
+function UserProfile({ user }) {
+  return (
+    <div>
+      <h1>{user.name}</h1>
+      <strong>{user.bio?.short ?? "No bio provided"}</strong>
+    </div>
+  );
 }
