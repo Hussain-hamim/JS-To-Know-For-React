@@ -1,33 +1,44 @@
-// add(1)
-// add(1, 2)
-function add(a, b = 0) {
-  return a + b;
+const arr = [5, 6, 8, 4, 9];
+Math.max(...arr);
+// is the same as
+Math.max.apply(null, arr);
+
+const obj1 = {
+  a: "a from obj1",
+  b: "b from obj1",
+  c: "c from obj1",
+  d: {
+    e: "e from obj1",
+    f: "f from obj1",
+  },
+};
+const obj2 = {
+  b: "b from obj2",
+  c: "c from obj2",
+  d: {
+    g: "g from obj2",
+    h: "h from obj2",
+  },
+};
+console.log({ ...obj1, ...obj2 });
+// is the same as
+console.log(Object.assign({}, obj1, obj2));
+
+function add(first, ...rest) {
+  return rest.reduce((sum, next) => sum + next, first);
 }
-
 // is the same as
-const add = (a, b = 0) => a + b;
-
-// is the same as
-function add(a, b) {
-  b = b === undefined ? 0 : b;
-  return a + b;
+function add() {
+  const first = arguments[0];
+  const rest = Array.from(arguments).slice(1);
+  return rest.reduce((sum, next) => sum + next, first);
 }
 
 // in React:
-function useLocalStorageState({
-  key,
-  initialValue,
-  serialize = (v) => v,
-  deserialize = (v) => v,
-}) {
-  const [state, setState] = React.useState(
-    () => deserialize(window.localStorage.getItem(key)) || initialValue
-  );
-
-  const serializedState = serialize(state);
-  React.useEffect(() => {
-    window.localStorage.setItem(key, serializedState);
-  }, [key, serializedState]);
-
-  return [state, setState];
+function Box({ className, ...restOfTheProps }) {
+  const defaultProps = {
+    className: `box ${className}`,
+    children: "Empty box",
+  };
+  return <div {...defaultProps} {...restOfTheProps} />;
 }
