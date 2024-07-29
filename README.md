@@ -643,3 +643,5 @@ function GetGreetingForSubject({ subject }) {
 ```
 
 ### Don't forget to hit the Star
+
+~ Original Source: [Kent C Dodds - JavaScript to know for react](https://kentcdodds.com/blog/javascript-to-know-for-react)
