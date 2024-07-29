@@ -1,44 +1,48 @@
-const arr = [5, 6, 8, 4, 9];
-Math.max(...arr);
-// is the same as
-Math.max.apply(null, arr);
-
-const obj1 = {
-  a: "a from obj1",
-  b: "b from obj1",
-  c: "c from obj1",
-  d: {
-    e: "e from obj1",
-    f: "f from obj1",
-  },
-};
-const obj2 = {
-  b: "b from obj2",
-  c: "c from obj2",
-  d: {
-    g: "g from obj2",
-    h: "h from obj2",
-  },
-};
-console.log({ ...obj1, ...obj2 });
-// is the same as
-console.log(Object.assign({}, obj1, obj2));
-
-function add(first, ...rest) {
-  return rest.reduce((sum, next) => sum + next, first);
+export default function add(a, b) {
+  return a + b;
 }
-// is the same as
-function add() {
-  const first = arguments[0];
-  const rest = Array.from(arguments).slice(1);
-  return rest.reduce((sum, next) => sum + next, first);
+
+/*
+ * import add from './add'
+ * console.assert(add(3, 2) === 5)
+ */
+
+export const foo = "bar";
+
+/*
+ * import {foo} from './foo'
+ * console.assert(foo === 'bar')
+ */
+
+export function subtract(a, b) {
+  return a - b;
 }
+
+export const now = new Date();
+
+/*
+ * import {subtract, now} from './stuff'
+ * console.assert(subtract(4, 2) === 2)
+ * console.assert(now instanceof Date)
+ */
+
+// dynamic imports
+import("./some-module").then(
+  (allModuleExports) => {
+    // the allModuleExports object will be the same object you get if you had
+    // used: import * as allModuleExports from './some-module'
+    // the only difference is this will be loaded asynchronously which can
+    // have performance benefits in some cases
+  },
+  (error) => {
+    // handle the error
+    // this will happen if there's an error loading or running the module
+  }
+);
 
 // in React:
-function Box({ className, ...restOfTheProps }) {
-  const defaultProps = {
-    className: `box ${className}`,
-    children: "Empty box",
-  };
-  return <div {...defaultProps} {...restOfTheProps} />;
-}
+import React, { Suspense, Fragment } from "react";
+
+// dynamic import of a React component
+const BigComponent = React.lazy(() => import("./big-component"));
+// big-component.js would need to "export default BigComponent" for this to work
