@@ -638,6 +638,10 @@ function GetGreetingForSubject({ subject }) {
 }
 ```
 
+## Conclusion
+
+There are of course many language features which are useful when building React apps, but these are some of my favorites that I find myself using again and again. I hope you find this useful.
+
 ### Don't forget to hit the Star
 
 ~ Original Source: [Kent C Dodds - JavaScript to know for react](https://kentcdodds.com/blog/javascript-to-know-for-react)
